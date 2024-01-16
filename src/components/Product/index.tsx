@@ -19,7 +19,7 @@ const Product: React.FC<ProductProps> = ({item}) => {
         tags={item.tags}
         />
       <ProductChart data={item.sales}/>
-      <ProductData />
+      <ProductData data={item.sales} />
     </div>
   );
 }
