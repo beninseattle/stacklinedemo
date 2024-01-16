@@ -1,6 +1,7 @@
 {
   "name": "stacklinedemo",
   "version": "0.1.0",
+  "homepage": "https://beninseattle.github.io/stacklinedemo",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
