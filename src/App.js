@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react';
+import loadData from './util/loadData.ts';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    const jsonData = loadData().then(data => setData(data));
+  }, []);
+  //
   return (
     <div className="App">
+      <div>
+        Data loaded: {data && data.length ? 'true' : 'false'}
+      </div>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
