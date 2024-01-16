@@ -16,7 +16,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       <img src={image} alt={[title, subtitle].join(' ')}/>
       <div className='title'>{title}</div>
       <div className='subtitle'>{subtitle}</div>
-      <div className='tags'>{tags.map(tag => (<span>{tag}</span>))}</div>
+      <div className='tags'>{tags.map(tag => (<span key={tag}>{tag}</span>))}</div>
     </div>
   );
 };

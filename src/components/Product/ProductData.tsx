@@ -10,11 +10,26 @@ type ProductChartProps = {
 
 const ProductData: React.FC<ProductChartProps> = ({ data }) => {
   const columnDefs: ColDef<ProductDataSales>[] = [
-    {field: 'weekEnding'},
-    {field: 'retailSales'},
-    {field: 'wholesaleSales'},
-    {field: 'unitsSold'},
-    {field: 'retailerMargin'}
+    {
+      field: 'weekEnding',
+      cellDataType: 'dateString'
+    }, {
+      field: 'retailSales',
+      cellDataType: 'number',
+      valueFormatter: v => (v.data?.retailSales!).toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits: 0})
+    }, {
+      field: 'wholesaleSales',
+      cellDataType: 'number',
+      valueFormatter: v => (v.data?.retailSales!).toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits: 0})
+    }, {
+      field: 'unitsSold',
+      cellDataType: 'number',
+      valueFormatter: v => (v.data?.retailSales!).toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits: 0})
+    }, {
+      field: 'retailerMargin',
+      cellDataType: 'number',
+      valueFormatter: v => (v.data?.retailSales!).toLocaleString("en-US", {style:"currency", currency:"USD", maximumFractionDigits: 0})
+    }
   ];
   return (
     <div className="ag-theme-quartz" style={{ height: 500 }}>
