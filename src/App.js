@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import loadData from './util/loadData.ts';
+import loadData from './util/loadData';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   const [data, setData] = useState({});
   useEffect(() => {
-    const jsonData = loadData().then(data => setData(data));
+    loadData().then(data => setData(data));
   }, []);
   //
   return (
