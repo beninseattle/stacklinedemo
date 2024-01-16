@@ -1,0 +1,41 @@
+.product {
+  margin-top: 3rem;
+}
+
+.product_detail, .product_chart, .product_data {
+  background-color: white;
+  margin: .5rem;
+}
+
+.product_detail {
+  display: flex;
+  flex-direction: column;
+
+  div {
+    padding: .5rem;
+  }
+
+  img {
+    max-height: 300px;
+    object-fit: contain;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .subtitle {
+    color: gray;
+  }
+  .tags {
+    border-top: solid 1px gray;
+    border-bottom: solid 1px gray;
+
+    span {
+      margin: .5rem;
+      padding: 5px 1rem;
+      border: solid 1px lightgray;
+      border-radius: 6px;
+    }
+  }
+}
