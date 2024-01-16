@@ -1,4 +1,4 @@
-import {create as d3Create} from 'd3-selection';
+import { create as d3Create } from 'd3-selection';
 
 import { Selection } from 'd3-selection';
 import { ProductDataSales } from "../App";
@@ -35,8 +35,18 @@ const LineChart = (chartDiv: HTMLDivElement, data: ProductDataSales[]) => {
     chartDiv.appendChild(svg.node()!);
   }
 
+  function drawAxes() {
+    console.log('Draw axes');
+  }
+
+  function drawLines() {
+    console.log('Draw lines');
+  }
+
   const chartSvg = d3Create('svg');
   initChart(chartSvg);
+  drawAxes();
+  drawLines();
 };
 
 export default LineChart;
