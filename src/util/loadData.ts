@@ -4,11 +4,12 @@ const fetchData = async () => {
   const response = await fetch('/stacklinedemo/stackline_frontend_assessment_data_2021.json');
   const data = await response.json() as Promise<ProductDataType[]>;
 
-  // Map sales date strings to date objects
+  // Map sales date strings to date objects and sort by date
   (await data).forEach(product => {
     product.sales.forEach(sale => {
       sale.weekEnding = new Date(sale.weekEnding as any as string);
-    })
+    });
+    product.sales.sort((a,b) => a.weekEnding.getDate() - b.weekEnding.getDate());
   })
   return data;
 };

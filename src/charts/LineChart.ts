@@ -8,7 +8,12 @@ import { line } from 'd3-shape';
 import { Selection } from 'd3-selection';
 import { ProductDataSales } from '../App';
 
-const LineChart = (chartDiv: HTMLDivElement, data: ProductDataSales[], lineKey: keyof ProductDataSales) => {
+const LineChart = (
+  chartDiv: HTMLDivElement,
+  data: ProductDataSales[],
+  lineKey: keyof ProductDataSales,
+  dateKey: keyof ProductDataSales
+) => {
   const MIN_HEIGHT = 300;
   const AXIS_HEIGHT = 20;
   const CHART_PADDING = 10;
@@ -17,8 +22,9 @@ const LineChart = (chartDiv: HTMLDivElement, data: ProductDataSales[], lineKey: 
   let xAxisScale: ScaleBand<string>;
   let xScale: ScaleLinear<number, number>;
   let yScale: ScaleLinear<number, number>;
-  let maxDate = max(data, d => d.weekEnding)!;
-  let minDate = min(data, d => d.weekEnding)!;
+  let maxDate = max(data, d => d[dateKey])! as Date;
+  let minDate = min(data, d => d[dateKey])! as Date;
+  let months: string[];
   const chartSvg = create('svg');
 
   function updateChartDimensions() {
@@ -26,10 +32,11 @@ const LineChart = (chartDiv: HTMLDivElement, data: ProductDataSales[], lineKey: 
     console.log('Chart div bounds', bounds);
     height = bounds.height < MIN_HEIGHT ? MIN_HEIGHT : bounds.height;
     width = bounds.width;
+    console.log(`height: ${height}, width: ${width}`);
   }
 
   function updateChartScales() {
-    const months = timeMonths(minDate, maxDate, 1).map(date => date.toLocaleString('en-US', { month: 'short' }));
+    months = timeMonths(minDate, maxDate, 1).map(date => date.toLocaleString('en-US', { month: 'short' }));
     xAxisScale = scaleBand()
       .domain(months)
       .range([0, width - 2 * CHART_PADDING]);
@@ -38,7 +45,7 @@ const LineChart = (chartDiv: HTMLDivElement, data: ProductDataSales[], lineKey: 
       .range([0, width - 2 * CHART_PADDING]);
     yScale = scaleLinear()
       .domain([min(data, d => d[lineKey]), max(data, d => d[lineKey])] as Iterable<NumberValue>)
-      .range([0, height - 2 * CHART_PADDING - AXIS_HEIGHT]);
+      .range([height - 2 * CHART_PADDING - AXIS_HEIGHT, CHART_PADDING]);
   }
 
   function initChart(svg: Selection<SVGSVGElement, undefined, null, undefined>) {
@@ -65,8 +72,6 @@ const LineChart = (chartDiv: HTMLDivElement, data: ProductDataSales[], lineKey: 
   }
 
   function drawAxes() {
-    const months = timeMonths(minDate, maxDate, 1).map(date => date.toLocaleString('en-US', { month: 'short' }));
-    console.log('months: ', months);
     const xAxis = axisBottom(xAxisScale)
       .tickValues(months)
       .tickSize(0);
@@ -81,7 +86,7 @@ const LineChart = (chartDiv: HTMLDivElement, data: ProductDataSales[], lineKey: 
   function drawLines() {
     console.log('Draw lines');
     const plot = chartSvg.select("g.plot");
-    const dLine = line<ProductDataSales>().y(d => yScale(d.retailSales)).x(d => xScale(d.weekEnding.getDate()));
+    const dLine = line<ProductDataSales>().y(d => yScale(d[lineKey])).x(d => xScale((d[dateKey] as Date).getDate()));
     plot.append("path").attr("d", dLine(data)).attr("stroke", "currentColor").attr("fill", "none");
   }
 
