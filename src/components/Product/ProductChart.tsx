@@ -11,7 +11,7 @@ const ProductChart: React.FC<ProductChartProps> = ({ data }) => {
 
   useEffect(() => {
     if(chartRef && chartRef.current && !ChartInitialized) {
-      LineChart(chartRef.current, data);
+      LineChart(chartRef.current, data, 'retailSales');
       ChartInitialized = true;
     }
   }, [data]);
