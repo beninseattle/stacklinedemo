@@ -12,7 +12,7 @@ const ProductData: React.FC<ProductChartProps> = ({ data }) => {
   const columnDefs: ColDef<ProductDataSales>[] = [
     {
       field: 'weekEnding',
-      cellDataType: 'dateString'
+      cellDataType: 'date'
     }, {
       field: 'retailSales',
       cellDataType: 'number',
